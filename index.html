@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>STONE PAPER SCISSOR GAME</h1>
+      <button id="rock">ROCK</button>
+      <button id="paper">PAPER</button>
+      <button id="scissors">SCISSORS</button>
+      <button id="reset">RESET</button>
+    </div>
+
+    <div>
+      <p id="result"></p>
+      <p id="scoreboard">Wins: 0 | Losses: 0 | Ties: 0</p>
+    </div>
+    <div class="satyam"><img src="logo.png" alt="image not loading" height="300px" ></div>
+
+    <script>
+const emoji = { rock: "🪨", paper: "📄", scissors: "✂️" };
+
+// 1. Computer random choice
+function getComputerChoice() {
+  const choices = ["rock", "paper", "scissors"];
+  const randomIndex = Math.floor(Math.random() * choices.length);
+  return choices[randomIndex];
+}
+
+// 2. Decide winner
+function getWinner(userChoice, computerChoice) {
+  if (userChoice === computerChoice) return "It's a tie!";
+
+  if (
+    (userChoice === "rock" && computerChoice === "scissors") ||
+    (userChoice === "paper" && computerChoice === "rock") ||
+    (userChoice === "scissors" && computerChoice === "paper")
+  ) return "You win!";
+
+  return "Computer wins!";
+}
+
+// 3. Load scores from localStorage
+let scores = JSON.parse(localStorage.getItem("scores")) || { wins: 0, losses: 0, ties: 0 };
+
+// 4. Play one round
+function playRound(userChoice) {
+  const computerChoice = getComputerChoice();
+  const result = getWinner(userChoice, computerChoice);
+
+  // Update scores
+  if (result === "You win!") scores.wins++;
+  else if (result === "Computer wins!") scores.losses++;
+  else scores.ties++;
+
+  // Save to localStorage
+  localStorage.setItem("scores", JSON.stringify(scores));
+
+  // Update result with color
+  const resultPara = document.getElementById("result");
+  resultPara.innerText = `You chose: ${userChoice} | Computer chose: ${computerChoice}\n${result}`;
+  if (result === "You win!") resultPara.style.color = "green";
+  else if (result === "Computer wins!") resultPara.style.color = "red";
+  else resultPara.style.color = "orange";
+
+  // Show alert with emojis
+  alert(`You chose: ${emoji[userChoice]} | Computer chose: ${emoji[computerChoice]}\n${result}`);
+
+  // Update scoreboard
+  document.getElementById("scoreboard").innerText =
+    `Wins: ${scores.wins} | Losses: ${scores.losses} | Ties: ${scores.ties}`;
+}
+
+// 5. Attach events to buttons
+document.getElementById("rock").addEventListener("click", () => playRound("rock"));
+document.getElementById("paper").addEventListener("click", () => playRound("paper"));
+document.getElementById("scissors").addEventListener("click", () => playRound("scissors"));
+
+// 6. Reset button
+document.getElementById("reset").addEventListener("click", () => {
+  scores = { wins: 0, losses: 0, ties: 0 };
+  localStorage.setItem("scores", JSON.stringify(scores));
+  document.getElementById("result").innerText = "Scores reset!";
+  document.getElementById("scoreboard").innerText = "Wins: 0 | Losses: 0 | Ties: 0";
+  alert("Scores have been reset ✅");
+});
+</script>
+
+  </body>
+</html>
