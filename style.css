@@ -1,0 +1,43 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: lightblue;
+    margin: 0;
+    padding: 20px;
+}
+.container {
+    color: red;
+    background-color: black;
+    border: 2px solid blue;
+    padding: 10px;
+    margin: 5px;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px gray;
+    transition: background-color 0.3s, color 0.3s;    
+}
+button {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+}
+p{
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 15px;
+    color: yellow;
+    text-shadow: 1px 1px 2px black;
+    transition: color 0.3s;
+    text-align: center;
+}
+.satyam{
+    padding: 200px;    
+    text-align: center;
+    margin-top: 20px;
+    height: 30px;
+    width: 30px;
+}
