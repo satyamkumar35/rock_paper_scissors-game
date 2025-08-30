@@ -41,3 +41,12 @@ p{
     height: 30px;
     width: 30px;
 }
+@media (max-width: 600px) {
+   button{
+    display: flex;
+    flex-wrap: wrap ;
+    margin-top: 2%;
+    gap: 10px;
+    justify-content: center;
+   }
+}
